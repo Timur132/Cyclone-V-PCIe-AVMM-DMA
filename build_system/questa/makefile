@@ -17,7 +17,10 @@ run:
 	@echo set TOPLEVEL $(TOPLEVEL) >> $(VARS_TCL_PATH)
 	@echo set SIM_PATH $(SIM_PATH) >> $(VARS_TCL_PATH)
 
-	vsim -c -do $(QUESTA_PATH)/questa_script.tcl
+	cp $(QUESTA_PATH)/questa_script.tcl $(QUESTA_BUILD_PATH)/questa_script.tcl; \
+	cd $(CURDIR); \
+	cd $(QUESTA_BUILD_PATH); \
+	vsim -c -do questa_script.tcl
 
 wave:
 	vsim -view $(SIM_PATH)/vsim.wlf

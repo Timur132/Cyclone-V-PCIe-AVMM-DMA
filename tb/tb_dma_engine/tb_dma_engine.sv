@@ -352,6 +352,10 @@ initial begin
     end
     
     test_done = '1;
+    
+    `ifdef QUESTA
+        $finish();
+    `endif
 
 end
 

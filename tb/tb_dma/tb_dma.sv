@@ -661,6 +661,10 @@ initial begin
     end
     
     test_done = '1;
+
+    `ifdef QUESTA
+        $finish();
+    `endif
     
 end
 
@@ -716,6 +720,7 @@ generate
                 iter = iter + 1;
             end
 
+            $display("Channel %d data checking success", i);
             finished_validation[i] = 1;
         end
     end

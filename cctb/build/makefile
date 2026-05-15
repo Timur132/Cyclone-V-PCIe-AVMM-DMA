@@ -6,7 +6,7 @@ CACHE_DIR ?= $(CURDIR)/.cache
 RTL_PATH  ?= $(CURDIR)/rtl
 
 COCOTB_TOPLEVEL ?= tb_uart_loop
-COCOTB_TEST_MODULES ?= tb_example
+COCOTB_TEST_MODULES ?= $(COCOTB_TOPLEVEL)
 TB_DIR ?= $(CURDIR)/tb
 TB_EXT ?= sv
 
