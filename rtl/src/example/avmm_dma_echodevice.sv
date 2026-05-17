@@ -112,7 +112,7 @@ module avmm_dma_echodevice #(
     generate
         genvar i;
 
-        for (i = 0; i < DMA_CHANNEL_COUNT; i++) begin
+        for (i = 0; i < DMA_CHANNEL_COUNT; i++) begin : echo_fifos
 
             logic [TX_DATA_WIDTH-1:0] file_wr_data ;
             logic                     file_wr_valid;
