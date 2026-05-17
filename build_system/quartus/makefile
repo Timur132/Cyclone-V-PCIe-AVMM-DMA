@@ -20,17 +20,16 @@ CUSTOM_ASSIGNMENTS ?= custom_assignments.tcl
 DEVICE_FAMILY ?= "\"Cyclone V\""
 DEVICE_PART ?= "5CGTFD9D5F27C7"
 
-RELEASE_DIR 	?= $(CURDIR)/release
-RELEASE_DIRS 	?= $(wildcard $(RELEASE_DIR)/*/) 
-RELEASE_FILES	?= $(foreach directory,$(RELEASE_DIRS), $(directory)$(shell basename $(directory)).qar)
+CABLE_NAME ?= C5P
+JTAG_CHAIN_DEVNUM ?= 1
 
-.PHONY: all compile clean
+.PHONY: all compile program clean
 
 all: compile
 
-compile: $(VARS_TCL_PATH)/$(TOPLEVEL).qpf
+compile: $(VARS_TCL_PATH)/output_files/$(TOPLEVEL).sof
 
-$(VARS_TCL_PATH)/$(TOPLEVEL).qpf: $(shell find $(CURDIR)/rtl -type f | tr '\n' ' ') $(NAMES_QSYS)
+$(VARS_TCL_PATH)/output_files/$(TOPLEVEL).sof: $(shell find $(CURDIR)/rtl -type f | tr '\n' ' ') $(NAMES_QSYS)
 	cp $(QUARTUS_BUILD_PATH)/$(CUSTOM_ASSIGNMENTS) $(VARS_TCL_PATH)/$(CUSTOM_ASSIGNMENTS)
 	cp $(QUARTUS_BUILD_PATH)/setup_sh.tcl $(VARS_TCL_PATH)/setup_sh.tcl
 
@@ -65,6 +64,10 @@ $(NAMES_QSYS): $(shell find $(CURDIR)/fpga/quartus/qsys -type f | tr '\n' ' ')
 	for name in $$(cat $(NAMES_QSYS_PATH)); do\
 		$$QSYS_ROOTDIR/qsys-generate --synthesis=VERILOG $$(basename "$$name.qsys") --search-path=$(CUSTOM_IP_PATH),$$;\
 	done;\
+
+program: $(VARS_TCL_PATH)/output_files/$(TOPLEVEL).sof
+	cd $(VARS_TCL_PATH)/output_files ;\
+	quartus_pgm -c $(CABLE_NAME) -m jtag -o p\;$(TOPLEVEL).sof@$(JTAG_CHAIN_DEVNUM)
 
 clean:
 	rm -rf $(VARS_TCL_PATH)
