@@ -109,15 +109,15 @@ assign FAN_CTRL = 1;
 
 
 
-parameter     DMA_CHANNEL_COUNT                     = 1          ;
+parameter     DMA_CHANNEL_COUNT                     = 16         ;
 
 parameter     DMA_BYTES_WIDTH                       = 22         ;
 parameter     DMA_OFFFSET_WIDTH                     = 22         ;
 
-parameter int DMA_WORD_BYTES    [DMA_CHANNEL_COUNT] = '{1 {16  }};
-parameter int DMA_WQ_DEPTH      [DMA_CHANNEL_COUNT] = '{1 {1024}};
-parameter int DMA_RQ_DEPTH      [DMA_CHANNEL_COUNT] = '{1 {1024}};
-parameter int DMA_TQ_DEPTH      [DMA_CHANNEL_COUNT] = '{1 {16  }};
+parameter int DMA_WORD_BYTES    [DMA_CHANNEL_COUNT] = '{16{16  }};
+parameter int DMA_WQ_DEPTH      [DMA_CHANNEL_COUNT] = '{16{1024}};
+parameter int DMA_RQ_DEPTH      [DMA_CHANNEL_COUNT] = '{16{1024}};
+parameter int DMA_TQ_DEPTH      [DMA_CHANNEL_COUNT] = '{16{16  }};
 
 parameter int MAX_WQ_DEPTH                          = 1024       ;
 parameter int MAX_RQ_DEPTH                          = 1024       ;
@@ -129,23 +129,6 @@ parameter     BAR_ADDR_WIDTH                        = 12         ;
 parameter     TX_DATA_WIDTH                         = 128        ;
 parameter     TX_ADDR_WIDTH                         = 64         ;
 parameter     TX_BURST_WIDTH                        = 6          ;
-
-parameter     AXI_LD_FIFO_DEPTH                     = 64         ;
-
-parameter     PMU_METRIC_COUNT                      = 19         ;
-parameter     PMU_DATA_WIDTH                        = 32         ;
-
-parameter int ROUTERS_COUNT     [DMA_CHANNEL_COUNT] = '{1 {16  }};
-parameter     MAX_ROUTERS_COUNT                     = 16         ;
-
-parameter int AXI_DATA_WIDTH    [DMA_CHANNEL_COUNT] = '{1 {32  }};
-parameter int AXI_ADDR_WIDTH    [DMA_CHANNEL_COUNT] = '{1 {8   }};
-parameter int AXI_ID_W_WIDTH    [DMA_CHANNEL_COUNT] = '{1 {5   }};
-parameter int AXI_ID_R_WIDTH    [DMA_CHANNEL_COUNT] = '{1 {5   }};
-parameter     MAX_AXI_DATA_WIDTH                    = 32         ;
-
-parameter DMA_WQ_ADDR_WIDTH = $clog2(MAX_WQ_DEPTH);
-parameter DMA_RQ_ADDR_WIDTH = $clog2(MAX_RQ_DEPTH);
 
 logic           pll_50mhz_clk                   ;
 

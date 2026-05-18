@@ -1,4 +1,4 @@
-LIST_TB := $(CURDIR)/rtl/lists/files_tb.lst
+LIST_TB := $(CURDIR)/tb/lists/files_tb.lst
 LIST_RTL := $(CURDIR)/rtl/lists/files_rtl.lst
 LIST_HEX := $(CURDIR)/rtl/lists/files_hex.lst
 
