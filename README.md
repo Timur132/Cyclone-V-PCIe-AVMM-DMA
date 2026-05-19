@@ -220,6 +220,28 @@ Features:
 - `#define DMA_BUFFER_SIZE 4194304` sets the size of a DMA buffer for each channel in bytes. You can change it,
 but 4 Mbytes set by default is a practical maximum a stock Linux system can allocate using `dma_alloc_coherent()`.
 
+#### Using existing software test
+The current DMA controller example implements a DMA echodevice, where internal DMA read queue is looped over to the DMA write queue, which means, that data
+read from PC to DMA is going to be written from DMA to PC on a subsequent request. There are two userspace software examples, which test and demonstrate this
+project in action:
+
+* `echodevice_interactive.c` - requests user to input data, then writes this data to DMA and reads it back from the DMA;
+* `echodevice_test.c` - tests all DMA channel echodevices over multiple iterations and all external IRQs through the external CSR example.
+
+All macros are configurable.
+
+Both are built in the same way (root directory of this repository is the starting point):
+```
+cd ./sw/dma_driver
+gcc -o echodevice_<interactive/test> echodevice_<interactive/test>.c
+```
+
+Execution:
+```
+./echodevice_test
+./echodevice_interactive <DMA channel number>
+```
+
 #### Writing software in userspace
 Example: 16-channel DMA
 
